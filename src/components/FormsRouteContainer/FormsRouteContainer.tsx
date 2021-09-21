@@ -1,6 +1,6 @@
 import { Switch, Route } from "react-router-dom";
 import FormsIndexPage from "../FormsIndexPage/FormsIndexPage";
-import FormsNewPage from "../FormsNewPage.tsx/FormsNewPage";
+import FormsNewPage from "../FormsNewPage/FormsNewPage";
 import FormsShowPage from "../FormsShowPage/FormsShowPage";
 
 export default function FormsRouteContainer() {
