@@ -5,15 +5,33 @@ import { InputEnum } from "../../types/input";
 export default function FormsNewPage(): JSX.Element {
   const [form, setForm] = useState<IForm>(initialFormData);
 
+  function handleChange(e: React.FormEvent<HTMLInputElement>): void {
+    setForm({ ...form, [e.currentTarget.name]: e.currentTarget.value });
+  }
+
+  function toggleGuest(newGuestStatus: boolean): void {
+    setForm({ ...form, guest: newGuestStatus });
+  }
+
   return (
     <div>
       <form>
         <label>Form Name: </label>
-        <input value={form.name} />
+        <input name="name" value={form.name} onChange={handleChange} />
         <br />
         <label>Guest Form?</label>
-        <input type="checkbox" checked={form.guest} />
-        <input type="checkbox" checked={!form.guest} />
+        <label>Yes</label>
+        <input
+          type="checkbox"
+          checked={form.guest}
+          onChange={() => toggleGuest(true)}
+        />
+        <label>No</label>
+        <input
+          type="checkbox"
+          checked={!form.guest}
+          onChange={() => toggleGuest(false)}
+        />
         <br />
         <div>
           <h3>Inputs</h3>
@@ -28,10 +46,10 @@ export default function FormsNewPage(): JSX.Element {
               <br />
               <label>type</label>
               <select value={input.type}>
-                  <option value="text">text</option>
-                  <option value="textarea">textarea</option>
-                  <option value="checkbox">checkbox</option>
-                  <option value="number">number</option>
+                <option value="text">text</option>
+                <option value="textarea">textarea</option>
+                <option value="checkbox">checkbox</option>
+                <option value="number">number</option>
               </select>
             </div>
           ))}
