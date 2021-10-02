@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FORMS_URL } from "../../constraints/urls";
 import IForm from "../../types/form";
+import LoadingSpinner from "../shared/LoadingSpinner";
 
 export default function FormsIndexPage(): JSX.Element {
   const [forms, setForms] = useState<IForm[] | null>(null);
@@ -25,7 +26,7 @@ export default function FormsIndexPage(): JSX.Element {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   if (!forms) {
