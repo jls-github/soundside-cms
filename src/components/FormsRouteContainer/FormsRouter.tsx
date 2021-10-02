@@ -3,7 +3,7 @@ import FormsIndexPage from "../FormsIndexPage/FormsIndexPage";
 import FormsNewPage from "../FormsNewPage/FormsNewPage";
 import FormsShowPage from "../FormsShowPage/FormsShowPage";
 
-export default function FormsRouteContainer() {
+export default function FormsRouter() {
   return (
     <Switch>
       <Route exact path="/forms">

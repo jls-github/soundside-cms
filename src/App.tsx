@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import FormsRouteContainer from "./components/FormsRouteContainer/FormsRouteContainer";
+import FormsRouter from "./components/FormsRouteContainer/FormsRouter";
 import Header from "./components/Header/Header";
 import HomePage from "./components/HomePage/HomePage";
 
@@ -12,7 +12,7 @@ function App() {
           <HomePage />
         </Route>
         <Route path="/forms">
-          <FormsRouteContainer />
+          <FormsRouter />
         </Route>
       </Switch>
     </Router>
