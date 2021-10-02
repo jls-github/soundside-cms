@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createInputFiles } from "typescript";
 import IForm from "../../types/form";
 import { InputEnum } from "../../types/input";
 
@@ -11,6 +12,22 @@ export default function FormsNewPage(): JSX.Element {
 
   function toggleGuest(newGuestStatus: boolean): void {
     setForm({ ...form, guest: newGuestStatus });
+  }
+
+  function handleChangeInputData(
+    e: React.FormEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
+  ): void {
+    const [name, id] = e.currentTarget.name.split("-");
+    const value = e.currentTarget.value;
+    setForm({
+      ...form,
+      inputs: form.inputs?.map((input, idx) => {
+        if (parseInt(id) === idx) {
+          return { ...input, [name]: value };
+        }
+        return input;
+      }),
+    });
   }
 
   return (
@@ -39,13 +56,25 @@ export default function FormsNewPage(): JSX.Element {
           {form.inputs?.map((input, idx) => (
             <div key={`input-${idx}`}>
               <label>Input Name: </label>
-              <input value={input.name} />
+              <input
+                name={`name-${idx}`}
+                value={input.name}
+                onChange={handleChangeInputData}
+              />
               <br />
               <label>Input Label Text: </label>
-              <input value={input.labelText} />
+              <input
+                name={`labelText-${idx}`}
+                value={input.labelText}
+                onChange={handleChangeInputData}
+              />
               <br />
               <label>type</label>
-              <select value={input.type}>
+              <select
+                name={`type-${idx}`}
+                value={input.type}
+                onChange={handleChangeInputData}
+              >
                 <option value="text">text</option>
                 <option value="textarea">textarea</option>
                 <option value="checkbox">checkbox</option>
