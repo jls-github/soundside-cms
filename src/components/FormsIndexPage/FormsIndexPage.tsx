@@ -16,10 +16,8 @@ export default function FormsIndexPage(): JSX.Element {
       <Link to="/forms/new">New Form</Link>
       {forms.map((form, idx) => {
         return (
-          <div>
-            <Link to={`/forms/${form.id}`} key={`form-${idx}`}>
-              {form.name}
-            </Link>
+          <div key={`form-${idx}`}>
+            <Link to={`/forms/${form.id}`}>{form.name}</Link>
           </div>
         );
       })}

@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { FORMS_URL } from "../../constraints/urls";
 import IForm from "../../types/form";
 import { InputEnum } from "../../types/input";
+import LoadingSpinner from "../shared/LoadingSpinner";
 
 // TODO: Button to add more inputs
 // TODO: Select box to pick pre-made input
@@ -8,6 +10,8 @@ import { InputEnum } from "../../types/input";
 
 export default function FormsNewPage(): JSX.Element {
   const [form, setForm] = useState<IForm>(initialFormData);
+  const [success, setSuccess] = useState<boolean | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   function handleChange(e: React.FormEvent<HTMLInputElement>): void {
     setForm({ ...form, [e.currentTarget.name]: e.currentTarget.value });
@@ -43,6 +47,32 @@ export default function FormsNewPage(): JSX.Element {
       ...form,
       inputs: [...(form.inputs || []), newInput],
     });
+  }
+
+  function handleSubmit(e: React.SyntheticEvent): void {
+    e.preventDefault();
+    fetch(FORMS_URL, {
+      method: "POST",
+      headers: {
+        Authorization: "test_password",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    }).then((res) => {
+      if (res.ok) {
+        setSuccess(true);
+      } else {
+        // TODO: handle errors
+        console.log(res);
+      }
+      setLoading(false);
+    });
+  }
+
+  if (loading) return <LoadingSpinner />
+
+  if (success) {
+    return <div>Form submission successful!</div>
   }
 
   return (
@@ -98,6 +128,9 @@ export default function FormsNewPage(): JSX.Element {
             </div>
           ))}
         </div>
+        <button type="submit" onClick={handleSubmit}>
+          Submit
+        </button>
       </form>
       <button onClick={handleAddInput}>Add Input</button>
     </div>
