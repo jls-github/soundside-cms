@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FORMS_URL } from "../../constraints/urls";
 import IForm from "../../types/form";
+import LoadingSpinner from "../shared/LoadingSpinner";
 
 export default function FormsShowPage(): JSX.Element {
   const { id } = useParams<{ id: string }>();
@@ -25,7 +26,7 @@ export default function FormsShowPage(): JSX.Element {
     fetchForm()
   }, [id]);
 
-  if (loading) return <div>loading...</div>;
+  if (loading) return <LoadingSpinner />;
   if (!form) return <div>Something went wrong... Please try again later.</div>;
 
   return (

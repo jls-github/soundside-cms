@@ -25,9 +25,7 @@ export default function FormsIndexPage(): JSX.Element {
     fetchForms();
   }, []);
 
-  if (loading) {
-    return <LoadingSpinner />;
-  }
+  if (loading) return <LoadingSpinner />
 
   if (!forms) {
     return <div>Something went wrong... Please try again later</div>;
