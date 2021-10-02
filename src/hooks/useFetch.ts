@@ -24,7 +24,7 @@ export default function useFetch<T>(url: string): useFetchData<T> {
       setLoading(false);
     }
     fetchData();
-  }, []);
+  }, [url]);  
 
   return { loading, data };
 }

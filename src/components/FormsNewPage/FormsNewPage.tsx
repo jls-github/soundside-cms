@@ -33,6 +33,18 @@ export default function FormsNewPage(): JSX.Element {
     });
   }
 
+  function handleAddInput() {
+    const newInput = {
+      labelText: "",
+      name: "",
+      type: InputEnum.text,
+    };
+    setForm({
+      ...form,
+      inputs: [...(form.inputs || []), newInput],
+    });
+  }
+
   return (
     <div>
       <form>
@@ -87,6 +99,7 @@ export default function FormsNewPage(): JSX.Element {
           ))}
         </div>
       </form>
+      <button onClick={handleAddInput}>Add Input</button>
     </div>
   );
 }

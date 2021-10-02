@@ -13,6 +13,7 @@ export default function FormsIndexPage(): JSX.Element {
 
   return (
     <div>
+      <Link to="/forms/new">New Form</Link>
       {forms.map((form, idx) => {
         return (
           <div>
