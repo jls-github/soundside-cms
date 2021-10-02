@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { FORMS_URL } from "../../constraints/urls";
 import IForm from "../../types/form";
 
@@ -34,7 +35,7 @@ export default function FormsIndexPage(): JSX.Element {
   return (
     <div>
       {forms.map((form, idx) => {
-        return <p key={`form-${idx}`}>{form.name}</p>;
+        return <div><Link to={`/forms/${form.id}`} key={`form-${idx}`}>{form.name}</Link></div>;
       })}
     </div>
   );
