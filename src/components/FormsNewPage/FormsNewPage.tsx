@@ -2,6 +2,10 @@ import { useState } from "react";
 import IForm from "../../types/form";
 import { InputEnum } from "../../types/input";
 
+// TODO: Button to add more inputs
+// TODO: Select box to pick pre-made input
+// TODO: Submit button
+
 export default function FormsNewPage(): JSX.Element {
   const [form, setForm] = useState<IForm>(initialFormData);
 

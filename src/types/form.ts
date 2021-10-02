@@ -1,7 +1,10 @@
-import IInput from './input'
+import IInput from "./input";
 
 interface IForm {
-  name: string, guest: boolean, inputs?: IInput[]    
+  name: string;
+  guest: boolean;
+  inputs?: IInput[];
+  id?: number;
 }
 
-export default IForm
+export default IForm;
