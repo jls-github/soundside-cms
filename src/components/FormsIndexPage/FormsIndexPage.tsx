@@ -1,9 +1,26 @@
-export default function FormsIndexPage() {
-    // List all forms here
+import { useState, useEffect } from "react";
+import { FORMS_URL } from "../../constraints/urls";
+import IForm from "../../types/form";
 
-    return (
-        <div>
-            Forms Index Page
-        </div>
-    )
+export default function FormsIndexPage(): JSX.Element {
+  const [forms, setForms] = useState<IForm[] | null>(null);
+
+  useEffect(() => {
+    async function fetchForms(): Promise<void> {
+      const res = await fetch(FORMS_URL, {
+        headers: { Authorization: "test_password" },
+      });
+      const json = await res.json();
+      setForms(json);
+    }
+    fetchForms();
+  }, []);
+
+  return (
+    <div>
+      {forms?.map((form) => {
+        return <p>{form.name}</p>;
+      })}
+    </div>
+  );
 }
