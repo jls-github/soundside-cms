@@ -16,9 +16,13 @@ export default function FormsIndexPage(): JSX.Element {
     fetchForms();
   }, []);
 
+  if (!forms) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
-      {forms?.map((form) => {
+      {forms.map((form) => {
         return <p>{form.name}</p>;
       })}
     </div>
