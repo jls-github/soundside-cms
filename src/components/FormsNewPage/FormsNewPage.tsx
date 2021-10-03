@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { FORMS_URL } from "../../constraints/urls";
+import { useFormHandlers } from "../../hooks/useFormHandlers";
 import useSubmit from "../../hooks/useSubmit";
 import IForm from "../../types/form";
 import { InputEnum } from "../../types/input";
@@ -9,47 +9,21 @@ import InputsContainer from "./InputsContainer";
 // TODO: Select box to pick pre-made input
 
 export default function FormsNewPage(): JSX.Element {
-  const [form, setForm] = useState<IForm>(initialFormData);
-
   const { success, loading, handleSubmit } = useSubmit<IForm>(FORMS_URL);
 
-  function handleChange(e: React.FormEvent<HTMLInputElement>): void {
-    setForm({ ...form, [e.currentTarget.name]: e.currentTarget.value });
-  }
-
-  function toggleGuest(newGuestStatus: boolean): void {
-    setForm({ ...form, guest: newGuestStatus });
-  }
-
-  function handleChangeInputData(
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ): void {
-    const [name, id] = e.currentTarget.name.split("-");
-    const value = e.currentTarget.value;
-    setForm({
-      ...form,
-      inputs: form.inputs?.map((input, idx) => {
-        if (parseInt(id) === idx) {
-          return { ...input, [name]: value };
-        }
-        return input;
-      }),
-    });
-  }
-
-  function handleAddInput() {
-    const newInput = {
-      labelText: "",
-      name: "",
-      type: InputEnum.text,
-    };
-    setForm({
-      ...form,
-      inputs: [...(form.inputs || []), newInput],
-    });
-  }
+  const {
+    form,
+    handleChange,
+    handleChangeInputData,
+    toggleGuest,
+    handleAddInput,
+  } = useFormHandlers(initialFormData);
 
   if (loading) return <LoadingSpinner />;
+
+  if (success === false) {
+    return <div>Something went wrong. Please try again later...</div>;
+  }
 
   if (success) {
     return <div>Form submission successful!</div>;

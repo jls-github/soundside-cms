@@ -12,6 +12,7 @@ export default function useSubmit<T>(url: string): useSubmitData {
 
   function handleSubmit(e: React.SyntheticEvent, data: T): void {
     e.preventDefault();
+    setLoading(true);
     fetch(url, {
       method: "POST",
       headers: {
@@ -25,6 +26,7 @@ export default function useSubmit<T>(url: string): useSubmitData {
       } else {
         // TODO: handle errors
         console.log(res);
+        setSuccess(false);
       }
       setLoading(false);
     });
