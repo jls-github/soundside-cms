@@ -1,15 +1,21 @@
-import { FORMS_URL } from "../../constraints/urls";
+import { FORMS_URL, INPUTS_URL } from "../../constraints/urls";
+import useFetch from "../../hooks/useFetch";
 import { useFormHandlers } from "../../hooks/useFormHandlers";
 import useSubmit from "../../hooks/useSubmit";
 import IForm from "../../types/form";
-import { InputEnum } from "../../types/input";
+import IInput, { InputEnum } from "../../types/input";
+import InputDropDown from "../shared/InputDropDown";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import InputsContainer from "./InputsContainer";
 
 // TODO: Select box to pick pre-made input
 
 export default function FormsNewPage(): JSX.Element {
-  const { success, loading, handleSubmit } = useSubmit<IForm>(FORMS_URL);
+  const {
+    success,
+    loading: submissionLoading,
+    handleSubmit,
+  } = useSubmit<IForm>(FORMS_URL);
 
   const {
     form,
@@ -19,7 +25,11 @@ export default function FormsNewPage(): JSX.Element {
     handleAddInput,
   } = useFormHandlers(initialFormData);
 
-  if (loading) return <LoadingSpinner />;
+  const { data: inputs, loading: inputsLoading } = useFetch<IInput[]>(
+    INPUTS_URL
+  );
+
+  if (submissionLoading || inputsLoading) return <LoadingSpinner />;
 
   if (success === false) {
     return <div>Something went wrong. Please try again later...</div>;
@@ -60,6 +70,7 @@ export default function FormsNewPage(): JSX.Element {
         </button>
       </form>
       <button onClick={handleAddInput}>Add Input</button>
+      {inputs && <InputDropDown inputs={inputs} />}
     </div>
   );
 }
