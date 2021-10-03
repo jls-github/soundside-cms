@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { FORMS_URL } from "../../constraints/urls";
+import useSubmit from "../../hooks/useSubmit";
 import IForm from "../../types/form";
 import { InputEnum } from "../../types/input";
 import LoadingSpinner from "../shared/LoadingSpinner";
+import InputsContainer from "./InputsContainer";
 
-// TODO: Button to add more inputs
 // TODO: Select box to pick pre-made input
-// TODO: Submit button
 
 export default function FormsNewPage(): JSX.Element {
   const [form, setForm] = useState<IForm>(initialFormData);
-  const [success, setSuccess] = useState<boolean | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+
+  const { success, loading, handleSubmit } = useSubmit<IForm>(FORMS_URL);
 
   function handleChange(e: React.FormEvent<HTMLInputElement>): void {
     setForm({ ...form, [e.currentTarget.name]: e.currentTarget.value });
@@ -22,7 +22,7 @@ export default function FormsNewPage(): JSX.Element {
   }
 
   function handleChangeInputData(
-    e: React.FormEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ): void {
     const [name, id] = e.currentTarget.name.split("-");
     const value = e.currentTarget.value;
@@ -49,30 +49,10 @@ export default function FormsNewPage(): JSX.Element {
     });
   }
 
-  function handleSubmit(e: React.SyntheticEvent): void {
-    e.preventDefault();
-    fetch(FORMS_URL, {
-      method: "POST",
-      headers: {
-        Authorization: "test_password",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    }).then((res) => {
-      if (res.ok) {
-        setSuccess(true);
-      } else {
-        // TODO: handle errors
-        console.log(res);
-      }
-      setLoading(false);
-    });
-  }
-
-  if (loading) return <LoadingSpinner />
+  if (loading) return <LoadingSpinner />;
 
   if (success) {
-    return <div>Form submission successful!</div>
+    return <div>Form submission successful!</div>;
   }
 
   return (
@@ -95,40 +75,13 @@ export default function FormsNewPage(): JSX.Element {
           onChange={() => toggleGuest(false)}
         />
         <br />
-        <div>
-          <h3>Inputs</h3>
-
-          {form.inputs?.map((input, idx) => (
-            <div key={`input-${idx}`}>
-              <label>Input Name: </label>
-              <input
-                name={`name-${idx}`}
-                value={input.name}
-                onChange={handleChangeInputData}
-              />
-              <br />
-              <label>Input Label Text: </label>
-              <input
-                name={`labelText-${idx}`}
-                value={input.labelText}
-                onChange={handleChangeInputData}
-              />
-              <br />
-              <label>type</label>
-              <select
-                name={`type-${idx}`}
-                value={input.type}
-                onChange={handleChangeInputData}
-              >
-                <option value="text">text</option>
-                <option value="textarea">textarea</option>
-                <option value="checkbox">checkbox</option>
-                <option value="number">number</option>
-              </select>
-            </div>
-          ))}
-        </div>
-        <button type="submit" onClick={handleSubmit}>
+        {form.inputs && (
+          <InputsContainer
+            inputs={form.inputs}
+            handleChangeInputData={handleChangeInputData}
+          />
+        )}
+        <button type="submit" onClick={(e) => handleSubmit(e, form)}>
           Submit
         </button>
       </form>
