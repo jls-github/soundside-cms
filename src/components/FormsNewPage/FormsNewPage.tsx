@@ -73,7 +73,15 @@ export default function FormsNewPage(): JSX.Element {
           Submit
         </button>
       </form>
-      <button onClick={handleAddInput}>Add Input</button>
+      <button
+        onClick={() =>
+          handleAddInput(
+            inputs?.find((input) => input.name === selectedInput)
+          )
+        }
+      >
+        Add Input
+      </button>
       {inputs && (
         <InputDropDown
           inputs={inputs}

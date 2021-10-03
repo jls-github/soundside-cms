@@ -1,6 +1,6 @@
 import { useState } from "react";
 import IForm from "../types/form";
-import { InputEnum } from "../types/input";
+import IInput, { InputEnum } from "../types/input";
 
 interface useFormHandlersData {
   form: IForm;
@@ -9,7 +9,7 @@ interface useFormHandlersData {
   handleChangeInputData: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void;
-  handleAddInput: () => void;
+  handleAddInput: (input?: IInput) => void;
 }
 
 export function useFormHandlers(initialFormData: IForm): useFormHandlersData {
@@ -39,7 +39,7 @@ export function useFormHandlers(initialFormData: IForm): useFormHandlersData {
     });
   }
 
-  function handleAddInput(): void {
+  function handleAddInput(input?: IInput): void {
     const newInput = {
       labelText: "",
       name: "",
@@ -47,7 +47,7 @@ export function useFormHandlers(initialFormData: IForm): useFormHandlersData {
     };
     setForm({
       ...form,
-      inputs: [...(form.inputs || []), newInput],
+      inputs: [...(form.inputs || []), input || newInput],
     });
   }
 

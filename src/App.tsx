@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import FormsRouter from "./components/FormsRouteContainer/FormsRouter";
+import FormsRouter from "./components/FormsRouter/FormsRouter";
 import Header from "./components/Header/Header";
 import HomePage from "./components/HomePage/HomePage";
 
