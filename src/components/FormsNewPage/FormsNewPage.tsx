@@ -1,6 +1,7 @@
 import { FORMS_URL, INPUTS_URL } from "../../constraints/urls";
 import useFetch from "../../hooks/useFetch";
 import { useFormHandlers } from "../../hooks/useFormHandlers";
+import useInputDropdown from "../../hooks/useInputDropdown";
 import useSubmit from "../../hooks/useSubmit";
 import IForm from "../../types/form";
 import IInput from "../../types/input";
@@ -29,6 +30,8 @@ export default function FormsNewPage(): JSX.Element {
   const { data: inputs, loading: inputsLoading } = useFetch<IInput[]>(
     INPUTS_URL
   );
+
+  const { selectedInput, handleChangeSelectedInput } = useInputDropdown();
 
   if (submissionLoading || inputsLoading) return <LoadingSpinner />;
 
@@ -71,7 +74,13 @@ export default function FormsNewPage(): JSX.Element {
         </button>
       </form>
       <button onClick={handleAddInput}>Add Input</button>
-      {inputs && <InputDropDown inputs={inputs} />}
+      {inputs && (
+        <InputDropDown
+          inputs={inputs}
+          selectedInput={selectedInput}
+          handleChangeSelectedInput={handleChangeSelectedInput}
+        />
+      )}
     </div>
   );
 }
