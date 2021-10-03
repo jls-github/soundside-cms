@@ -7,17 +7,22 @@ import IForm from "../../types/form";
 import IInput from "../../types/input";
 import InputDropDown from "../shared/InputDropDown";
 import LoadingSpinner from "../shared/LoadingSpinner";
-import initialFormData from "./initialFormData";
 import InputsContainer from "../shared/InputsContainer";
 
 // TODO: Select box to pick pre-made input
 
-export default function FormsNewPage(): JSX.Element {
+interface EditFormProps {
+  initialFormData: IForm;
+}
+
+export default function EditForm({
+  initialFormData,
+}: EditFormProps): JSX.Element {
   const {
     success,
     loading: submissionLoading,
     handleSubmit,
-  } = useSubmit<IForm>(FORMS_URL, "POST");
+  } = useSubmit<IForm>(FORMS_URL, "PATCH");
 
   const {
     form,
@@ -75,9 +80,7 @@ export default function FormsNewPage(): JSX.Element {
       </form>
       <button
         onClick={() =>
-          handleAddInput(
-            inputs?.find((input) => input.name === selectedInput)
-          )
+          handleAddInput(inputs?.find((input) => input.name === selectedInput))
         }
       >
         Add Input

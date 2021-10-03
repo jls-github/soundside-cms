@@ -6,7 +6,7 @@ interface useSubmitData {
   handleSubmit: Function;
 }
 
-export default function useSubmit<T>(url: string): useSubmitData {
+export default function useSubmit<T>(url: string, method: string): useSubmitData {
   const [success, setSuccess] = useState<boolean | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -14,7 +14,7 @@ export default function useSubmit<T>(url: string): useSubmitData {
     e.preventDefault();
     setLoading(true);
     fetch(url, {
-      method: "POST",
+      method: method,
       headers: {
         Authorization: "test_password",
         "Content-Type": "application/json",
