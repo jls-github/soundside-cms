@@ -3,9 +3,10 @@ import useFetch from "../../hooks/useFetch";
 import { useFormHandlers } from "../../hooks/useFormHandlers";
 import useSubmit from "../../hooks/useSubmit";
 import IForm from "../../types/form";
-import IInput, { InputEnum } from "../../types/input";
+import IInput from "../../types/input";
 import InputDropDown from "../shared/InputDropDown";
 import LoadingSpinner from "../shared/LoadingSpinner";
+import initialFormData from "./initialFormData";
 import InputsContainer from "./InputsContainer";
 
 // TODO: Select box to pick pre-made input
@@ -74,9 +75,3 @@ export default function FormsNewPage(): JSX.Element {
     </div>
   );
 }
-
-const initialFormData: IForm = {
-  name: "",
-  guest: true,
-  inputs: [{ labelText: "", name: "", type: InputEnum["text"] }],
-};
