@@ -9,6 +9,16 @@ import InputDropDown from "../shared/InputDropDown";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import initialFormData from "./initialFormData";
 import InputsContainer from "../shared/InputsContainer";
+import {
+  Button,
+  Container,
+  Form,
+  FormCheck,
+  FormControl,
+  FormGroup,
+  FormText,
+} from "react-bootstrap";
+import FormCheckInput from "react-bootstrap/esm/FormCheckInput";
 
 // TODO: Select box to pick pre-made input
 
@@ -44,51 +54,90 @@ export default function FormsNewPage(): JSX.Element {
   }
 
   return (
-    <div>
-      <form>
-        <label>Form Name: </label>
-        <input name="name" value={form.name} onChange={handleChange} />
-        <br />
-        <label>Guest Form?</label>
-        <label>Yes</label>
-        <input
-          type="checkbox"
-          checked={form.guest}
-          onChange={() => toggleGuest(true)}
-        />
-        <label>No</label>
-        <input
-          type="checkbox"
-          checked={!form.guest}
-          onChange={() => toggleGuest(false)}
-        />
-        <br />
+    <Container className="w-50">
+      <h2>New Form</h2>
+      <p>
+        Use this page to create a new form. After submitting, a url and QR code
+        will be generated for your new form.
+      </p>
+      <Form>
+        <hr />
+        <h4>Form Info</h4>
+        <hr />
+        <Container>
+          <FormGroup>
+            <label>Form Name</label>
+            <input
+              className="form-control"
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+            />
+            <FormText>
+              Form name will only be used internally. A form name is required
+              and must be unique.
+            </FormText>
+          </FormGroup>
+          <span className="me-2">
+            Is this a form for guests or regular attenders?
+          </span>
+          <FormCheck className="form-check-inline">
+            <label>Guests</label>
+            <FormCheckInput
+              type="radio"
+              checked={form.guest}
+              onChange={() => toggleGuest(true)}
+            />
+          </FormCheck>
+          <FormCheck className="form-check-inline">
+            <label>Regular Attenders</label>
+            <FormCheckInput
+              type="radio"
+              checked={!form.guest}
+              onChange={() => toggleGuest(false)}
+            />
+          </FormCheck>
+        </Container>
         {form.inputs && (
           <InputsContainer
             inputs={form.inputs}
             handleChangeInputData={handleChangeInputData}
           />
         )}
-        <button type="submit" onClick={(e) => handleSubmit(e, form)}>
-          Submit
-        </button>
-      </form>
-      <button
-        onClick={() =>
-          handleAddInput(
-            inputs?.find((input) => input.name === selectedInput)
-          )
-        }
-      >
-        Add Input
-      </button>
+      </Form>
       {inputs && (
-        <InputDropDown
-          inputs={inputs}
-          selectedInput={selectedInput}
-          handleChangeSelectedInput={handleChangeSelectedInput}
-        />
+        <>
+          <h5>Add another question</h5>
+          <Container>
+            <InputDropDown
+              inputs={inputs}
+              selectedInput={selectedInput}
+              handleChangeSelectedInput={handleChangeSelectedInput}
+            />
+            <div className="my-2">
+              <Button
+                className="btn-primary"
+                onClick={() =>
+                  handleAddInput(
+                    inputs?.find((input) => input.name === selectedInput)
+                  )
+                }
+              >
+                Add Selected Question
+              </Button>
+            </div>
+          </Container>
+        </>
       )}
-    </div>
+      <div className="my-2">
+        <Button
+          className="btn-primary w-100"
+          type="submit"
+          onClick={(e) => handleSubmit(e, form)}
+        >
+          Submit New Form
+        </Button>
+      </div>
+    </Container>
   );
 }
