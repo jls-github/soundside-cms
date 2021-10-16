@@ -9,12 +9,12 @@ export default function Header() {
           <Navbar.Brand>Soundside CMS</Navbar.Brand>
         </div>
         <Nav className="col-4">
-          <div className="ms-auto">
-            <Link className="nav-item mx-1" to="/">
+          <div className="ms-auto navbar-nav">
+            <Link className="nav-item mx-1 nav-link" to="/">
               Home
             </Link>
 
-            <Link className="nav-item mx-1" to="/forms">
+            <Link className="nav-item mx-1 nav-link" to="/forms">
               Forms
             </Link>
           </div>
