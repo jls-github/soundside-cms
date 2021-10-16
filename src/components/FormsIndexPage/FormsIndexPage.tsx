@@ -1,3 +1,4 @@
+import { Button, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FORMS_URL } from "../../constraints/urls";
 import useFetch from "../../hooks/useFetch";
@@ -12,15 +13,20 @@ export default function FormsIndexPage(): JSX.Element {
   if (!forms) return <div>Something went wrong... Please try again later</div>;
 
   return (
-    <div>
-      <Link to="/forms/new">New Form</Link>
-      {forms.map((form, idx) => {
-        return (
-          <div key={`form-${idx}`}>
-            <Link to={`/forms/${form.id}`}>{form.name}</Link>
-          </div>
-        );
-      })}
-    </div>
+    <main>
+      <Container>
+        <h2>All Forms</h2>
+        {forms.map((form, idx) => {
+          return (
+            <div key={`form-${idx}`}>
+              <Link to={`/forms/${form.id}`}>{form.name}</Link>
+            </div>
+          );
+        })}
+        <Link to="/forms/new">
+          <Button className="btn-primary my-2">New Form</Button>
+        </Link>
+      </Container>
+    </main>
   );
 }
