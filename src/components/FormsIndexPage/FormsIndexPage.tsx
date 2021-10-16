@@ -14,7 +14,7 @@ export default function FormsIndexPage(): JSX.Element {
 
   return (
     <main>
-      <Container>
+      <Container className="w-50">
         <h2>All Forms</h2>
         {forms.map((form, idx) => {
           return (
