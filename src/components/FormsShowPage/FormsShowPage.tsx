@@ -5,6 +5,7 @@ import useEditMode from "../../hooks/useEditMode";
 import useFetch from "../../hooks/useFetch";
 import IForm from "../../types/form";
 import LoadingSpinner from "../shared/LoadingSpinner";
+import PageWrapper from "../shared/PageWrapper";
 import EditForm from "./EditForm";
 
 export default function FormsShowPage(): JSX.Element {
@@ -20,7 +21,7 @@ export default function FormsShowPage(): JSX.Element {
   if (editMode) return <EditForm initialFormData={form} />;
 
   return (
-    <Container className="w-50">
+    <PageWrapper>
       <h3>{form.name}</h3>
       <p>Form for {form.guest ? "guests" : "regular attenders"}</p>
       <div>
@@ -48,6 +49,6 @@ export default function FormsShowPage(): JSX.Element {
         </Table>
       </div>
       <Button onClick={toggleEditMode}>Edit {form.name}</Button>
-    </Container>
+    </PageWrapper>
   );
 }

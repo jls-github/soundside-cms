@@ -14,11 +14,11 @@ import {
   Container,
   Form,
   FormCheck,
-  FormControl,
   FormGroup,
   FormText,
 } from "react-bootstrap";
 import FormCheckInput from "react-bootstrap/esm/FormCheckInput";
+import PageWrapper from "../shared/PageWrapper";
 
 // TODO: Select box to pick pre-made input
 
@@ -54,7 +54,7 @@ export default function FormsNewPage(): JSX.Element {
   }
 
   return (
-    <Container className="w-50">
+    <PageWrapper>
       <h2>New Form</h2>
       <p>
         Use this page to create a new form. After submitting, a url and QR code
@@ -138,6 +138,6 @@ export default function FormsNewPage(): JSX.Element {
           Submit New Form
         </Button>
       </div>
-    </Container>
+    </PageWrapper>
   );
 }

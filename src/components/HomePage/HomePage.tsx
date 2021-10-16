@@ -1,7 +1,9 @@
+import PageWrapper from "../shared/PageWrapper";
+
 export default function HomePage() {
     return (
-        <div>
+        <PageWrapper>
             Home Page
-        </div>
+        </PageWrapper>
     )
 }

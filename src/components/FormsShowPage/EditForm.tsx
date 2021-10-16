@@ -10,6 +10,7 @@ import LoadingSpinner from "../shared/LoadingSpinner";
 import InputsContainer from "../shared/InputsContainer";
 import {Container, Form, FormGroup, FormText, FormCheck, Button} from 'react-bootstrap'
 import FormCheckInput from "react-bootstrap/esm/FormCheckInput";
+import PageWrapper from "../shared/PageWrapper";
 
 
 // TODO: Select box to pick pre-made input
@@ -52,7 +53,7 @@ export default function EditForm({
   }
 
   return (
-    <Container className="w-50">
+    <PageWrapper>
       <h2>Edit {initialFormData.name}</h2>
       <p>
         Use this page to edit a form. After submitting, a url and QR code
@@ -136,6 +137,6 @@ export default function EditForm({
           Update "{initialFormData.name}"
         </Button>
       </div>
-    </Container>
+    </PageWrapper>
   );
 }

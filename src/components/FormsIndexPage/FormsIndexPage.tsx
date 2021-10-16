@@ -4,6 +4,7 @@ import { FORMS_URL } from "../../constraints/urls";
 import useFetch from "../../hooks/useFetch";
 import IForm from "../../types/form";
 import LoadingSpinner from "../shared/LoadingSpinner";
+import PageWrapper from '../shared/PageWrapper'
 
 export default function FormsIndexPage(): JSX.Element {
   const { data: forms, loading } = useFetch<IForm[]>(FORMS_URL);
@@ -14,7 +15,7 @@ export default function FormsIndexPage(): JSX.Element {
 
   return (
     <main>
-      <Container className="w-50">
+      <PageWrapper>
         <h2>All Forms</h2>
         {forms.map((form, idx) => {
           return (
@@ -26,7 +27,7 @@ export default function FormsIndexPage(): JSX.Element {
         <Link to="/forms/new">
           <Button className="btn-primary my-2">New Form</Button>
         </Link>
-      </Container>
+      </PageWrapper>
     </main>
   );
 }
