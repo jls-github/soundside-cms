@@ -1,3 +1,4 @@
+import { Button, Container, Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { FORMS_URL } from "../../constraints/urls";
 import useEditMode from "../../hooks/useEditMode";
@@ -19,22 +20,34 @@ export default function FormsShowPage(): JSX.Element {
   if (editMode) return <EditForm initialFormData={form} />;
 
   return (
-    <div>
-      <p>Name: {form.name}</p>
-      <p>Guest: {form.guest.toString()}</p>
+    <Container className="w-50">
+      <h3>{form.name}</h3>
+      <p>Form for {form.guest ? "guests" : "regular attenders"}</p>
       <div>
-        <h3>Inputs: </h3>
-        {form.inputs?.map((input, idx) => {
-          return (
-            <div key={`input-${idx}`}>
-              <p>Name: {input.name}</p>
-              <p>Label Text: {input.labelText}</p>
-              <p>Type: {input.type}</p>
-            </div>
-          );
-        })}
+        <h3>Questions</h3>
+        <Table>
+          <thead>
+            <tr>
+              <th>Question Name</th>
+              <th>Question Text</th>
+              <th>Question Type</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          {form.inputs?.map((input, idx) => {
+            return (
+              <tr key={`input-${idx}`}>
+                <td>{input.name}</td>
+                <td>{input.labelText}</td>
+                <td>{input.type}</td>
+              </tr>
+            );
+          })}
+          </tbody>
+        </Table>
       </div>
-      <button onClick={toggleEditMode}>Edit</button>
-    </div>
+      <Button onClick={toggleEditMode}>Edit {form.name}</Button>
+    </Container>
   );
 }
