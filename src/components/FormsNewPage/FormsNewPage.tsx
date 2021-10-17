@@ -20,8 +20,6 @@ import {
 import FormCheckInput from "react-bootstrap/esm/FormCheckInput";
 import PageWrapper from "../shared/PageWrapper";
 
-// TODO: Select box to pick pre-made input
-
 export default function FormsNewPage(): JSX.Element {
   const {
     success,
