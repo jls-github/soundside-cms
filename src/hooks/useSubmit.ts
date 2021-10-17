@@ -13,6 +13,8 @@ export default function useSubmit<T>(url: string, method: string): useSubmitData
   function handleSubmit(e: React.SyntheticEvent, data: T): void {
     e.preventDefault();
     setLoading(true);
+    console.log(method)
+    console.log(url)
     fetch(url, {
       method: method,
       headers: {

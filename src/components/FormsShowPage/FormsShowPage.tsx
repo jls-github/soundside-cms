@@ -18,7 +18,7 @@ export default function FormsShowPage(): JSX.Element {
   if (loading) return <LoadingSpinner />;
   if (!form) return <div>Something went wrong... Please try again later.</div>;
 
-  if (editMode) return <EditForm initialFormData={form} />;
+  if (editMode) return <EditForm initialFormData={form} id={parseInt(id)}/>;
 
   return (
     <PageWrapper>

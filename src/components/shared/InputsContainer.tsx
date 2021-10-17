@@ -47,6 +47,7 @@ export default function InputsContainer({
               <label>Question Type</label>
               <FormControl
                 as="select"
+                style={{appearance: "auto"}}
                 name={`type-${idx}`}
                 value={input.type}
                 onChange={handleChangeInputData}

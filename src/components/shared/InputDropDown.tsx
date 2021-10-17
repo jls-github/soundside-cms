@@ -15,7 +15,7 @@ export default function InputDropDown({
   return (
     <>
     <Alert variant="warning">Warning: Changing a question that already exists will change that question for ALL FORMS! Select "New Question" if you want to your changes to apply to a question for only this form.</Alert>
-    <FormControl as="select" value={selectedInput} onChange={handleChangeSelectedInput}>
+    <FormControl as="select" style={{appearance: "auto"}} value={selectedInput} onChange={handleChangeSelectedInput}>
       <option value="New Input">New Question</option>
       {inputs.map((input, idx) => (
         <option key={`selectable-input-${idx}`}>{input.name}</option>

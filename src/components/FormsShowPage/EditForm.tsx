@@ -8,26 +8,28 @@ import IInput from "../../types/input";
 import InputDropDown from "../shared/InputDropDown";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import InputsContainer from "../shared/InputsContainer";
-import {Container, Form, FormGroup, FormText, FormCheck, Button} from 'react-bootstrap'
+import {
+  Container,
+  Form,
+  FormGroup,
+  FormText,
+  FormCheck,
+  Button,
+} from "react-bootstrap";
 import FormCheckInput from "react-bootstrap/esm/FormCheckInput";
 import PageWrapper from "../shared/PageWrapper";
-
 
 // TODO: Select box to pick pre-made input
 
 interface EditFormProps {
   initialFormData: IForm;
+  id: number;
 }
 
 export default function EditForm({
   initialFormData,
+  id
 }: EditFormProps): JSX.Element {
-  const {
-    success,
-    loading: submissionLoading,
-    handleSubmit,
-  } = useSubmit<IForm>(FORMS_URL, "PATCH");
-
   const {
     form,
     handleChange,
@@ -35,6 +37,12 @@ export default function EditForm({
     toggleGuest,
     handleAddInput,
   } = useFormHandlers(initialFormData);
+
+  const {
+    success,
+    loading: submissionLoading,
+    handleSubmit,
+  } = useSubmit<IForm>(`${FORMS_URL}/${id}`, "PATCH");
 
   const { data: inputs, loading: inputsLoading } = useFetch<IInput[]>(
     INPUTS_URL
@@ -56,8 +64,8 @@ export default function EditForm({
     <PageWrapper>
       <h2>Edit {initialFormData.name}</h2>
       <p>
-        Use this page to edit a form. After submitting, a url and QR code
-        will be generated for your new form.
+        Use this page to edit a form. After submitting, a url and QR code will
+        be generated for your new form.
       </p>
       <Form>
         <hr />
