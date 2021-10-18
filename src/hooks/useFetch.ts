@@ -23,7 +23,7 @@ export default function useFetch<T>(url: string): useFetchData<T> {
       } else {
         console.log(res);
         if (res.status === 403) {
-          history.push("/home");
+          history.push("/login");
         }
       }
 

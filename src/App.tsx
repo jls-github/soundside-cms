@@ -3,18 +3,19 @@ import FormsRouter from "./components/FormsRouter/FormsRouter";
 import Header from "./components/Header/Header";
 import HomePage from "./components/HomePage/HomePage";
 import LoginPage from "./components/LoginPage/LoginPage";
+import ProtectedRoute from "./components/shared/ProtectedRoute";
 
 function App() {
   return (
     <Router>
       <Header />
       <Switch>
-        <Route exact path="/">
+        <ProtectedRoute exact path="/">
           <HomePage />
-        </Route>
-        <Route path="/forms">
+        </ProtectedRoute>
+        <ProtectedRoute path="/forms">
           <FormsRouter />
-        </Route>
+        </ProtectedRoute>
         <Route exact path="/login">
           <LoginPage />
         </Route>
