@@ -7,6 +7,7 @@ import {
   FormGroup,
   FormLabel,
 } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import { LOGIN_URL } from "../../constraints/urls";
 import useSubmit from "../../hooks/useSubmit";
 import LoadingSpinner from "../shared/LoadingSpinner";
@@ -14,9 +15,15 @@ import PageWrapper from "../shared/PageWrapper";
 
 export default function LoginPage() {
   const [password, setPassword] = useState<String>("");
+  const history = useHistory();
   const { success, loading: submitting, handleSubmit } = useSubmit<{
     password: String;
-  }>(LOGIN_URL, "POST", setToken);
+  }>(LOGIN_URL, "POST", onSuccessfulLogin);
+
+  function onSuccessfulLogin(json: { token: string }) {
+    localStorage.setItem("token", json.token);
+    history.push("/");
+  }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
     setPassword(e.target.value);
@@ -48,8 +55,4 @@ export default function LoginPage() {
       </Card>
     </PageWrapper>
   );
-}
-
-function setToken(json: { token: string }) {
-  localStorage.setItem("token", json.token);
 }
