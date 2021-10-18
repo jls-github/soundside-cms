@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import getToken from "../utilities/getToken";
 
 interface useFetchData<T> {
   loading: boolean;
@@ -8,23 +10,27 @@ interface useFetchData<T> {
 export default function useFetch<T>(url: string): useFetchData<T> {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const history = useHistory();
 
   useEffect(() => {
     async function fetchData(): Promise<void> {
       const res = await fetch(url, {
-        headers: { Authorization: "test_password" },
+        headers: { Authorization: getToken() },
       });
       if (res.ok) {
         const json = await res.json();
         setData(json);
       } else {
         console.log(res);
+        if (res.status === 403) {
+          history.push("/home");
+        }
       }
 
       setLoading(false);
     }
     fetchData();
-  }, [url]);  
+  }, [url, history]);
 
   return { loading, data };
 }
