@@ -1,8 +1,16 @@
 import React, { useState } from "react";
-import { Alert, Button, Form, FormGroup, FormLabel } from "react-bootstrap";
+import {
+  Alert,
+  Button,
+  Card,
+  Form,
+  FormGroup,
+  FormLabel,
+} from "react-bootstrap";
 import { LOGIN_URL } from "../../constraints/urls";
 import useSubmit from "../../hooks/useSubmit";
 import LoadingSpinner from "../shared/LoadingSpinner";
+import PageWrapper from "../shared/PageWrapper";
 
 export default function LoginPage() {
   const [password, setPassword] = useState<String>("");
@@ -17,22 +25,28 @@ export default function LoginPage() {
   if (submitting) return <LoadingSpinner />;
 
   return (
-    <Form onSubmit={(e) => handleSubmit(e, { password: password })}>
-      <FormGroup>
-        {success === false && (
-          <Alert variant="warning">Incorrect password!</Alert>
-        )}
-        <FormLabel>Password</FormLabel>
-        <input
-          className="form-control"
-          name="password"
-          onChange={handleChange}
-        />
-        <Button type="submit" className="btn-primary">
-          Login
-        </Button>
-      </FormGroup>
-    </Form>
+    <PageWrapper>
+      <Card className="p-4 bg-light">
+        <Form onSubmit={(e) => handleSubmit(e, { password: password })}>
+          <h2 className="text-center">Soundside CMS</h2>
+          <FormGroup>
+            {success === false && (
+              <Alert variant="warning">Incorrect password!</Alert>
+            )}
+            <FormLabel>Please enter your password to log in.</FormLabel>
+            <input
+              className="form-control"
+              name="password"
+              onChange={handleChange}
+              placeholder="password"
+            />
+            <Button type="submit" className="btn-primary w-100 my-2">
+              Login
+            </Button>
+          </FormGroup>
+        </Form>
+      </Card>
+    </PageWrapper>
   );
 }
 
