@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import QRCode from "qrcode";
 import IForm from "../../types/form";
 import PageWrapper from "../shared/PageWrapper";
 
@@ -8,17 +9,28 @@ export default function FormSuccessPage() {
 
   const formId = location.state?.id;
 
+  const formUrl = `https://soundsideforms.netlify.app/forms/${formId}`;
+
+  useEffect(() => {
+    if (formId) {
+      QRCode.toCanvas(
+        document.getElementById("qr-code-canvas"),
+        formUrl,
+        (error) => {
+          if (error) console.error(error);
+        }
+      );
+    }
+  }, [formId, formUrl]);
+
   if (formId)
     return (
       <PageWrapper>
         <h2>Form Submitted Successfully!</h2>
-        <p>
-          You can view your new form at url:{" "}
-          <a href={`https://soundsideforms.netlify.app/forms/${formId}`}>
-            https://soundsideforms.netlify.app/forms/{formId}
-          </a>
-        </p>
-        <p>This QR Code will give you access to above url</p>
+        <p>View your new form <a href={formUrl}>here</a></p>
+        <div className="d-flex justify-content-center align-items-center">
+          <canvas id="qr-code-canvas"></canvas>
+        </div>
       </PageWrapper>
     );
 
