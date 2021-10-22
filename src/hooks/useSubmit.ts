@@ -10,7 +10,8 @@ interface useSubmitData {
 export default function useSubmit<T>(
   url: string,
   method: string,
-  onSubmit?: Function
+  onSubmit?: Function,
+  onFailure?: Function
 ): useSubmitData {
   const [success, setSuccess] = useState<boolean | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -34,6 +35,7 @@ export default function useSubmit<T>(
       } else {
         // TODO: handle errors
         console.log(res);
+        onFailure?.(res);
         setSuccess(false);
       }
       setLoading(false);

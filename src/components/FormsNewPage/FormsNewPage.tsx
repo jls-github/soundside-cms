@@ -19,13 +19,16 @@ import {
 } from "react-bootstrap";
 import FormCheckInput from "react-bootstrap/esm/FormCheckInput";
 import PageWrapper from "../shared/PageWrapper";
+import useFormRedirect from "../../hooks/useFormRedirect";
 
 export default function FormsNewPage(): JSX.Element {
+  const { onSuccessRedirect, onFailureRedirect } = useFormRedirect();
+
   const {
     success,
     loading: submissionLoading,
     handleSubmit,
-  } = useSubmit<IForm>(FORMS_URL, "POST");
+  } = useSubmit<IForm>(FORMS_URL, "POST", onSuccessRedirect, onFailureRedirect);
 
   const {
     form,
